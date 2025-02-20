@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+}
+
+model Investment {
+  id                       Int     @id @default(autoincrement())
+  investido                Float
+  taxaAnual                Float
+  tempoInvestimento        Int
+  tipoInvestimento         String
+  retornoMensal            Float
+  retornoAnual             Float
+  impostoRenda             Float
+  descontoB3               Float
+  rendimentoTempoInvestido Float
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+}

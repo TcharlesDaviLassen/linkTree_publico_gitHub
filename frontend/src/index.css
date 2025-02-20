@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+body {
+  /* background: linear-gradient(180deg, rgba(79,53,12,1), rgba(172,114,7,1) 50%, rgba(190,98,0,1) 100%); */
+  /* background: linear-gradient(180deg, rgba(12,36,79,1) 0%, rgba(7,32,172,1) 46%, rgba(0,141,190,1) 100%); */
+
+  background-image: linear-gradient(
+    to bottom,
+    #021129,
+    #001e33,
+    #002833,
+    #003228,
+    #093918
+  );
+}
+
+.sub {
+  background-image: linear-gradient(
+    to bottom,
+    #021129,
+    #001e33,
+    #002833,
+    #003228,
+    #093918
+  );
+}
+
+.delete {
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  width: clamp(1rem, 2.5vw, 3rem);
+  height: clamp(1rem, 1.5vw, 2rem);
+  justify-content: center;
+}
+
+.text-end {
+  text-align: unset !important;
+}
+
+.table_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+table thead tr th {
+  font-size: clamp(0.84rem, 0.7vw, 24px);
+}
+
+table tbody tr td {
+  font-size: clamp(1rem, 2.5vw, 12px);
+}
+
+.mb-4 label {
+  font-size: clamp(0.5rem, 0.7vw, 1.4rem);
+}
+
+.swal2-cancel {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media (max-width: 850px) {
+  .mb-4 label {
+    font-size: clamp(0.5rem, 2vw, 10px);
+  }
+
+  .send-button {
+    width: 6rem;
+    margin-top: 1rem;
+  }
+
+  button {
+    height: 2rem;
+    text-align: center;
+    font-size: clamp(0.5rem, 2vw, 12px);
+  }
+}
+
+@media (max-width: 1530px) {
+  .send-button {
+    margin-top: 1rem;
+  }
+
+  .swal2-confirm {
+    display: flex !important;
+    align-items: center;
+  }
+
+  .hide-on-mobile {
+    display: none;
+  }
+
+  table thead tr th {
+    font-size: clamp(0.5rem, 2.5vw, 12px);
+  }
+
+  .mb-4 label {
+    font-size: clamp(0.5rem, 1vw, 1.4rem);
+  }
+
+  .text-end {
+    text-align: end !important;
+  }
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  td input {
+    width: 12%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+
+  .toggle-column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  td {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  button {
+    height: 2rem;
+    text-align: center;
+    font-size: clamp(0.5rem, 2vw, 12px);
+  }
+}
