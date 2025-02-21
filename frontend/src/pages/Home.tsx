@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getToken, logout } from "../api/auth";
-
+import { useAuth } from "../context/AuthContext";
+// import { getToken, logout } from "../api/auth.ts";
 const Home = () => {
+  const { token } = useAuth();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!getToken()) {
+    if (!token) {
       navigate("/login");
     } else {
       navigate("invest");

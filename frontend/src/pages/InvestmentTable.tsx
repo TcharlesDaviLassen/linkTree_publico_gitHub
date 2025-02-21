@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { getToken, logout } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
+// import { getToken, logout } from "../api/auth.ts";
 
 interface Investment {
   id: number;
@@ -29,11 +30,12 @@ interface InvestmentForm {
 }
 
 const InvestmentTable: React.FC = () => {
+  const { token, logout } = useAuth();
   const navigate = useNavigate();
   const [investments, setInvestments] = useState<Investment[]>([]);
 
   useEffect(() => {
-    if (!getToken()) {
+    if (!token) {
       navigate("/login");
     }
   }, []);
@@ -121,7 +123,7 @@ const InvestmentTable: React.FC = () => {
 
   return (
     <>
-      {getToken() ? (
+      {token ? (
         <div className="pb-28">
           <div className="pt-12 h-screen">
             {/*  */}
@@ -137,7 +139,7 @@ const InvestmentTable: React.FC = () => {
 
                 <button
                   onClick={sair}
-                  className="bg-red-500 text-white p-2 w-24 rounded hover:bg-blue-800 mb-3"
+                  className="bg-red-500 text-white p-2 w-24 rounded hover:bg-red-600 mb-3"
                 >
                   Sair
                 </button>
@@ -309,6 +311,7 @@ const InvestmentTable: React.FC = () => {
                           type="text"
                           style={{ textTransform: "uppercase" }}
                           value={investment.tipoInvestimento}
+                          required={true}
                           onChange={(e) =>
                             updateInvestment(
                               investment.id,
@@ -328,6 +331,7 @@ const InvestmentTable: React.FC = () => {
                         <input
                           type="text"
                           value={investment.tempoInvestimento}
+                          required={true}
                           onChange={(e) =>
                             updateInvestment(
                               investment.id,
@@ -348,6 +352,7 @@ const InvestmentTable: React.FC = () => {
                           // type="number"
                           inputMode="numeric"
                           value={investment.investido}
+                          required={true}
                           onChange={(e) =>
                             updateInvestment(
                               investment.id,
@@ -369,6 +374,7 @@ const InvestmentTable: React.FC = () => {
                             // type="number"
                             inputMode="numeric"
                             value={investment.taxaAnual}
+                            required={true}
                             onChange={(e) =>
                               updateInvestment(
                                 investment.id,
@@ -436,21 +442,32 @@ const InvestmentTable: React.FC = () => {
                   ))}
                 </tbody>
               </table>
-
-              <div className="flex gap-2 mt-4">
-                <button
-                  onClick={downloadCSV}
-                  className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600"
-                >
-                  Baixar CSV
-                </button>
-                <button
-                  onClick={downloadPDF}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                >
-                  Baixar PDF
-                </button>
-              </div>
+              {investments.map((investment) => (
+                <div className="flex gap-2 mt-4">
+                  <button
+                    disabled={
+                      investment.tipoInvestimento === "" ||
+                      investment.investido === 0 ||
+                      investment.taxaAnual === 0
+                    }
+                    onClick={downloadCSV}
+                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600 disabled:opacity-50 disabled:bg-gray-500"
+                  >
+                    Baixar CSV
+                  </button>
+                  <button
+                    disabled={
+                      investment.tipoInvestimento === "" ||
+                      investment.investido === 0 ||
+                      investment.taxaAnual === 0
+                    }
+                    onClick={downloadPDF}
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 disabled:opacity-50 disabled:bg-gray-500"
+                  >
+                    Baixar PDF
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         </div>

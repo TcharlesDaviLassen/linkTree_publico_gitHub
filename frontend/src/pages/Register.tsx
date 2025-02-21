@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { register } from "../api/auth";
+// import { register } from "../api/auth.ts";
 import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useAuth } from "../context/AuthContext.tsx";
 
 export const Register: React.FC = () => {
+  const { register } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
